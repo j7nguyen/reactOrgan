@@ -1,4 +1,4 @@
-KeyStore.setMaxListeners(KeyConstants.KEY_ORDER.length);
+KeyStore.setMaxListeners(100);
 
 window.addEventListener('keydown', function(event){
   event.preventDefault();

@@ -1,16 +1,27 @@
 var Key = React.createClass({
   getInitialState: function() {
-    return({
+    return ({
       active: false
     })
   },
-  componentDidMount: function(){
+  componentDidMount: function() {
     this.note = new Note(Tones[this.props.noteName]);
     KeyStore.addChangeListener(this._onChange);
+    KeyStore.addOctaveListener(this.changeOctave);
+
     console.log(this.props.noteName)
+  },
+  componentWillUnmount: function() {
+    KeyStore.removeChangeListener(this._onChange);
+  },
+  changeOctave: function() {
+    this.note = new Note(Tones[this.props.noteName]);
+    KeyStore.addChangeListener(this._onChange);
+
   },
   _onChange: function() {
     var active = _.include(KeyStore.all(), this.props.noteName);
+
     if (active) {
       this.note.start();
     } else {
@@ -19,7 +30,8 @@ var Key = React.createClass({
     this.setState({active: active});
   },
   render: function(){
-    var classString = this.state.active ? "key active" : "key"
+    var classString = this.state.active ? "key active" : "key";
+
     return (
       <div className={this.props.classname + classString}>
         <h3>{this.props.noteName}</h3>

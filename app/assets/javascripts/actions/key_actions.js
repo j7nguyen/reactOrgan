@@ -10,5 +10,11 @@ KeyActions = {
       actionType: KeyConstants.KEY_RELEASED,
       key: key
     });
+  },
+  setOctave: function(octave) {
+    AppDispatcher.dispatch({
+      actionType: KeyConstants.SET_OCTAVE,
+      octave: octave
+    });
   }
 }
