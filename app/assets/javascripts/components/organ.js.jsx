@@ -1,14 +1,16 @@
 var Organ = React.createClass({
   getInitialState: function() {
-    return({octave: 5})
+    return({octave: 4})
   },
   componentDidMount: function() {
     KeyStore.addOctaveListener(this.changeOctave);
     KeyActions.setOctave(this.state.octave);
   },
   changeOctave: function() {
+
     var octave = KeyStore.octave();
     this.setState({octave: octave});
+
   },
 
   render: function() {
@@ -26,15 +28,20 @@ var Organ = React.createClass({
 
       keys.push(<Key
         classname={initClass}
+        octave={this.state.octave}
+        thiskey={thiskey}
         key={thiskey + "-" + idx}
-        noteName={mappings[thiskey]}
-        label={labels[thiskey]} />
+        noteName={KeyConstants.KEY_MAPPINGS[this.state.octave][thiskey]}
+        label={labels[thiskey]}
+        />
+
       )
     }.bind(this));
 
     return (
       <div>
         {keys}
+        <Recorder />
       </div>
       )
   }

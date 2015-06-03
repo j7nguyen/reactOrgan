@@ -31,7 +31,6 @@
         } else if (numKey) {
           _activeOctave = numKey;
           KeyStore.emit(CHANGE_OCTAVE);
-          console.log("change octave");
         }
       }
       if (payload.actionType === KeyConstants.KEY_RELEASED) {

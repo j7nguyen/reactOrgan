@@ -29,5 +29,10 @@ var Tones = window.Tones = {
   "Eb6": 1245,
   "E6": 1319,
   "F6": 1397
-
 }
+
+var Notes = window.Notes = {};
+Object.keys(Tones).forEach(function(toneName){
+  var note = new Note(Tones[toneName]);
+  Notes[toneName] = note;
+})

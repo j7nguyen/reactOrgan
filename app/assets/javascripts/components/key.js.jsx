@@ -1,23 +1,22 @@
 var Key = React.createClass({
   getInitialState: function() {
     return ({
-      active: false
+      active: false,
+      octave: this.props.octave
     })
   },
   componentDidMount: function() {
-    this.note = new Note(Tones[this.props.noteName]);
+    this.note = Notes[this.props.noteName];
     KeyStore.addChangeListener(this._onChange);
     KeyStore.addOctaveListener(this.changeOctave);
-
-    console.log(this.props.noteName)
   },
   componentWillUnmount: function() {
     KeyStore.removeChangeListener(this._onChange);
   },
   changeOctave: function() {
-    this.note = new Note(Tones[this.props.noteName]);
-    KeyStore.addChangeListener(this._onChange);
-
+    this.setState({octave: KeyStore.octave()})
+    var noteName = KeyConstants.KEY_MAPPINGS[this.state.octave][this.props.thiskey]
+    this.note = Notes[noteName]
   },
   _onChange: function() {
     var active = _.include(KeyStore.all(), this.props.noteName);
